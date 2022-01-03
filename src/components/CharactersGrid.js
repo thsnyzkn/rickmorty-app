@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const CharactersGrid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: minmax(300px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: minmax(250px, 1fr);
   margin: 0;
   place-items: center;
   list-style-type: none;

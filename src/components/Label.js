@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const Label = styled.span`
   margin-top: ${({ topSpaced }) => topSpaced && "0.6rem"};
+  margin-bottom: ${({ bottomSpaced }) => bottomSpaced && "0.6rem"};
   font-size: 1.25rem;
   font-weight: ${({ weight }) => weight === "bold" && "bold"};
 `;

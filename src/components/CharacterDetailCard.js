@@ -10,7 +10,7 @@ const CardWrapper = styled.section`
   @media (min-width: 768px) {
     margin-bottom: 10rem;
   }
-  padding-top: 2rem;
+  padding-top: 4rem;
 `;
 
 const EpisodesList = styled.ul`
@@ -22,8 +22,8 @@ const EpisodesList = styled.ul`
 const Episode = styled.li`
   margin-bottom: 0.125rem;
   font-size: 1.125rem;
-  margin-bottom: 0.25rem;
-  color: darkgreen;
+  margin-bottom: 0.75rem;
+  color: darkred;
 `;
 const StyledLink = styled(Link)`
   padding: 1rem 2rem;
@@ -41,11 +41,13 @@ const CharacterDetailCard = ({ name, image, location, episodes }) => (
     <StyledLink to="/">Back to Home</StyledLink>
     <Label weight="bold">{name}</Label>
     <Image src={image} alt={`${name}'s visual depiction`} variant="big" />
-    <Label>
+    <Label bottomSpaced>
       <b>Location:</b> {location}
     </Label>
     <EpisodesList>
-      <Label weight="bold">5 Recent Episodes</Label>
+      <Label weight="bold" bottomSpaced>
+        5 Recent Episodes
+      </Label>
       {episodes.map(({ name }, index) => (
         <Episode key={index}>{name}</Episode>
       ))}

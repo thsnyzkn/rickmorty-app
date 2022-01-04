@@ -7,6 +7,7 @@ const Link = styled(RouterLink)`
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  color: black;
 `;
 
 export default Link;

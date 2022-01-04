@@ -1,7 +1,11 @@
 import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import CharacterDetailCard from "../CharacterDetailCard";
+import Loading from "../Loading";
+import Error from "../Error";
+import recentFiveEpisodes from "../../utils/recent-five-episodes";
 
-const GET_CHARACTER = gql`
+export const GET_CHARACTER = gql`
   query getCharacter($id: ID!) {
     character(id: $id) {
       name
@@ -25,27 +29,20 @@ function CharacterDetailPage() {
       id: characterId,
     },
   });
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading || !data?.character) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
   return (
-    <div>
-      <div>{data?.character?.name}</div>
-      <img
-        src={data?.character?.image}
-        alt={`${data?.character?.name}'s visual depiction`}
-      />
-      <div>{data?.character?.origin?.name}</div>
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        {[...data?.character?.episode]
-          ?.reverse()
-          .slice(0, 5)
-          .map(({ name, air_date }) => (
-            <li>
-              {name}-{air_date}
-            </li>
-          ))}
-      </ul>
-    </div>
+    <CharacterDetailCard
+      data-testid="character-container"
+      name={data?.character?.name}
+      image={data?.character?.image}
+      location={data?.character?.origin?.name}
+      episodes={recentFiveEpisodes(data?.character?.episode)}
+    />
   );
 }
 

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CharactersPage from "./components/pages/Characters.page";
+import CharactersList from "./components/pages/CharactersList.page";
 import CharacterDetailPage from "./components/pages/CharacterDetail.page";
 import Layout from "./components/Layout";
 
@@ -8,7 +8,7 @@ function App() {
     <Layout>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<CharactersPage />} />
+          <Route path="/" element={<CharactersList />} />
           <Route path=":characterId" element={<CharacterDetailPage />} />
         </Routes>
       </BrowserRouter>

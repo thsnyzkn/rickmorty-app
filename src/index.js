@@ -1,42 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import "./index.css";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apolloClient";
+import GlobalStyles from "./styles/globalStyles";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-const client = new ApolloClient({
-  uri: "https://rickandmortyapi.com/graphql",
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          characters: {
-            keyArgs: false,
-            merge(
-              existing = { __typename: "Characters", results: [], info: {} },
-              incoming,
-              { args }
-            ) {
-              if (args && !args.page) {
-                return incoming;
-              }
-              return {
-                ...existing,
-                results: [...existing?.results, ...incoming?.results],
-                info: { ...existing?.info, ...incoming?.info },
-              };
-            },
-          },
-        },
-      },
-    },
-  }),
-});
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
+      <GlobalStyles />
       <App />
     </ApolloProvider>
   </React.StrictMode>,

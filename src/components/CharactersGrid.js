@@ -9,7 +9,7 @@ const CharactersGrid = styled.ul`
   list-style-type: none;
   width: 100%;
   grid-gap: 1rem 2.5rem;
-  padding: 1rem;
+  padding: 2rem 0;
 `;
 
 export default CharactersGrid;

@@ -1,36 +1,31 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  within,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import { MemoryRouter } from "react-router-dom";
 import CharacterDetail, { GET_CHARACTER } from "./CharacterDetail.page";
 import characterDetailMock from "../../mocks/character-detail-mock.json";
 
-const characterMock = {
-  request: {
-    query: GET_CHARACTER,
-  },
-  result: {
-    data: characterDetailMock,
-  },
-};
-
-const mockedProvider = ({ children }) => {
-  return (
-    <MockedProvider mocks={[characterMock]} addTypename={false}>
-      <MemoryRouter>{children}</MemoryRouter>
-    </MockedProvider>
-  );
-};
 it("Prompt user with Loading text and then brings the detailed info for Morty Smith(id of 2)", async () => {
+  const characterMock = {
+    request: {
+      query: GET_CHARACTER,
+    },
+    result: {
+      data: characterDetailMock,
+    },
+  };
+
+  const mockedProvider = ({ children }) => {
+    return (
+      <MockedProvider mocks={[characterMock]} addTypename={false}>
+        <MemoryRouter initialEntries={["/2"]}>{children}</MemoryRouter>
+      </MockedProvider>
+    );
+  };
   render(<CharacterDetail />, {
     wrapper: mockedProvider,
   });
   expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+
   const charactarName = await screen.findByText(/Morty Smith/i);
   expect(charactarName).toBeInTheDocument();
   const characterLocation = await screen.findByText(/unknown/i);
